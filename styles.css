@@ -1,27 +1,88 @@
-body {
-    font-family: Arial, sans-serif;
-    line-height: 1.6;
+/* General reset and base styles */
+* {
     margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Cinzel', serif; /* A font with medieval flair */
+    background: #f8f1e4; /* A parchment-like background color */
+    color: #3c2a21;
+    line-height: 1.6;
     padding: 20px;
-}
-
-header {
-    background-color: #f4f4f4;
-    padding: 1rem;
+  }
+  
+  /* Header styles */
+  header {
     text-align: center;
-}
-
-main {
+    padding: 20px;
+    background: #8b5e3c; /* A deep, rich tone reminiscent of old wood */
+    color: #f8f1e4;
+    border-bottom: 4px solid #d4af37; /* A gold-like accent */
+  }
+  
+  header h1 {
+    font-size: 3em;
+    margin-bottom: 10px;
+  }
+  
+  header .tagline {
+    font-style: italic;
+  }
+  
+  /* Main content sections */
+  main {
+    margin: 30px auto;
     max-width: 800px;
-    margin: 2rem auto;
-}
-
-footer {
-    text-align: center;
-    padding: 1rem;
-    background-color: #f4f4f4;
-    position: fixed;
-    bottom: 0;
+    padding: 20px;
+    background: #fff;
+    border: 2px solid #8b5e3c;
+    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
+    border-radius: 10px;
+  }
+  
+  /* Section headings */
+  section h2 {
+    font-size: 2em;
+    margin-bottom: 10px;
+    border-bottom: 2px solid #8b5e3c;
+    padding-bottom: 5px;
+  }
+  
+  /* Table styling for CSV data visualization */
+  table {
     width: 100%;
-    left: 0;
-} 
+    border-collapse: collapse;
+    margin-top: 15px;
+  }
+  
+  table thead {
+    background: #8b5e3c;
+    color: #fff;
+  }
+  
+  table th,
+  table td {
+    padding: 10px;
+    border: 1px solid #d4af37;
+    text-align: left;
+  }
+  
+  table tbody tr:nth-child(even) {
+    background: #f0e6d6;
+  }
+  
+  /* Footer styling */
+  footer {
+    text-align: center;
+    margin-top: 30px;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #3c2a21;
+    border-top: 1px solid #8b5e3c;
+  }
+  
+  /* Optional: load a Google Font for added medieval flair */
+  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+  
