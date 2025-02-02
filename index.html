@@ -6,6 +6,7 @@
   <title>Men Of Responsibility</title>
   <!-- Link to the updated CSS for a medieval knight theme -->
   <link rel="stylesheet" href="styles.css" />
+  <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 </head>
 <body>
   <header>
@@ -17,125 +18,20 @@
     <!-- New section to visualize CSV data -->
     <section id="knights">
       <h2>Member list</h2>
+      <div class="table-controls">
+        <button class="btn btn-primary" onclick="addNewKnight()">Add New Knight</button>
+      </div>
       <table>
         <thead>
           <tr>
             <th>Member</th>
             <th>Title</th>
             <th>Rank</th>
+            <th>Actions</th>
           </tr>
         </thead>
-        <tbody>
-          <tr>
-            <td>The Hulk</td>
-            <td>Night Knight of the Night</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>Untergang</td>
-            <td>Night Knight of the Night</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>The Megamind</td>
-            <td>Night Knight of the Night</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>Prince</td>
-            <td>Sir John John</td>
-            <td>7</td>
-          </tr>
-          <tr>
-            <td>Gulddreng69</td>
-            <td>Night Knight of the Night</td>
-            <td>10</td>
-          </tr>
-          <tr>
-            <td>Meatlover</td>
-            <td>Sir John John</td>
-            <td>7</td>
-          </tr>
-          <tr>
-            <td>Whalecum</td>
-            <td>Sir</td>
-            <td>5</td>
-          </tr>
-          <tr>
-            <td>The Joker</td>
-            <td>Esquire</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>TuSip</td>
-            <td>Diciple</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>Konfirmanten</td>
-            <td>Esquire</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>Cookie</td>
-            <td>Diciple</td>
-            <td>2</td>
-          </tr>
-          <tr>
-            <td>LittleBit</td>
-            <td>Sir John John</td>
-            <td>7</td>
-          </tr>
-          <tr>
-            <td>LigeLovlig</td>
-            <td>Esquire</td>
-            <td>3</td>
-          </tr>
-          <tr>
-            <td>Ginger</td>
-            <td>Brother</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>Druglord</td>
-            <td>Brother</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>Faraday</td>
-            <td>Brother</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>Rogn</td>
-            <td>Brother</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>WasserBoy</td>
-            <td>Brother</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>G-streng</td>
-            <td>Little John</td>
-            <td>4</td>
-          </tr>
-          <tr>
-            <td>ShitMonk</td>
-            <td>Little John</td>
-            <td>4</td>
-          </tr>
-          <tr>
-            <td>BlueSpoon</td>
-            <td>Brother</td>
-            <td>1</td>
-          </tr>
-          <tr>
-            <td>aldente diller</td>
-            <td>Brother</td>
-            <td>1</td>
-          </tr>
+        <tbody id="knights-table-body">
+          <!-- Table content will be dynamically populated -->
         </tbody>
       </table>
     </section>
@@ -144,5 +40,158 @@
   <footer>
     <p>&copy; 2024 My Website. All rights reserved.</p>
   </footer>
+
+  <script>
+    // Initialize Supabase client
+    const supabaseUrl = 'https://fcklpwzxixeyxvczrylg.supabase.co'
+    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZja2xwd3p4aXhleXh2Y3pyeWxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1MDMxODQsImV4cCI6MjA1NDA3OTE4NH0.GoOaAjBPpU03UkbEB0XNIHl44EZuh-jV8YM758_1vXw'
+    const { createClient } = supabase
+    const supabase = createClient(supabaseUrl, supabaseKey)
+
+    // Fetch and display knights
+    async function fetchKnights() {
+      try {
+        const { data: knights, error } = await supabase
+          .from('knights')
+          .select('*')
+          .order('rank', { ascending: false });
+
+        if (error) throw error;
+        displayKnights(knights);
+      } catch (error) {
+        console.error('Error fetching knights:', error);
+      }
+    }
+
+    // Display knights in the table
+    function displayKnights(knights) {
+      const tbody = document.getElementById('knights-table-body');
+      tbody.innerHTML = '';
+
+      knights.forEach(knight => {
+        const tr = document.createElement('tr');
+        tr.dataset.id = knight.id;
+        tr.innerHTML = `
+          <td>${knight.member}</td>
+          <td>${knight.title}</td>
+          <td>${knight.rank}</td>
+          <td class="action-cell">
+            <button class="btn btn-primary" onclick="editKnight(${knight.id})">Edit</button>
+            <button class="btn btn-danger" onclick="deleteKnight(${knight.id})">Delete</button>
+          </td>
+        `;
+        tbody.appendChild(tr);
+      });
+    }
+
+    // Add new knight
+    function addNewKnight() {
+      const tr = document.createElement('tr');
+      tr.classList.add('edit-mode');
+      tr.innerHTML = `
+        <td><input type="text" class="member-input" placeholder="Member name"></td>
+        <td><input type="text" class="title-input" placeholder="Title"></td>
+        <td><input type="number" class="rank-input" placeholder="Rank"></td>
+        <td class="action-cell">
+          <button class="btn btn-primary" onclick="saveNewKnight(this)">Save</button>
+          <button class="btn btn-danger" onclick="cancelAdd(this)">Cancel</button>
+        </td>
+      `;
+      document.getElementById('knights-table-body').prepend(tr);
+    }
+
+    // Save new knight
+    async function saveNewKnight(button) {
+      const tr = button.closest('tr');
+      const knight = {
+        member: tr.querySelector('.member-input').value,
+        title: tr.querySelector('.title-input').value,
+        rank: parseInt(tr.querySelector('.rank-input').value)
+      };
+
+      try {
+        const { data, error } = await supabase
+          .from('knights')
+          .insert([knight])
+          .select();
+
+        if (error) throw error;
+        fetchKnights();
+      } catch (error) {
+        console.error('Error saving knight:', error);
+      }
+    }
+
+    // Edit knight
+    function editKnight(id) {
+      const tr = document.querySelector(`tr[data-id="${id}"]`);
+      const member = tr.cells[0].textContent;
+      const title = tr.cells[1].textContent;
+      const rank = tr.cells[2].textContent;
+
+      tr.classList.add('edit-mode');
+      tr.innerHTML = `
+        <td><input type="text" class="member-input" value="${member}"></td>
+        <td><input type="text" class="title-input" value="${title}"></td>
+        <td><input type="number" class="rank-input" value="${rank}"></td>
+        <td class="action-cell">
+          <button class="btn btn-primary" onclick="saveEdit(${id})">Save</button>
+          <button class="btn btn-danger" onclick="cancelEdit(${id})">Cancel</button>
+        </td>
+      `;
+    }
+
+    // Save edited knight
+    async function saveEdit(id) {
+      const tr = document.querySelector(`tr[data-id="${id}"]`);
+      const knight = {
+        member: tr.querySelector('.member-input').value,
+        title: tr.querySelector('.title-input').value,
+        rank: parseInt(tr.querySelector('.rank-input').value)
+      };
+
+      try {
+        const { error } = await supabase
+          .from('knights')
+          .update(knight)
+          .eq('id', id);
+
+        if (error) throw error;
+        fetchKnights();
+      } catch (error) {
+        console.error('Error updating knight:', error);
+      }
+    }
+
+    // Delete knight
+    async function deleteKnight(id) {
+      if (confirm('Are you sure you want to delete this knight?')) {
+        try {
+          const { error } = await supabase
+            .from('knights')
+            .delete()
+            .eq('id', id);
+
+          if (error) throw error;
+          fetchKnights();
+        } catch (error) {
+          console.error('Error deleting knight:', error);
+        }
+      }
+    }
+
+    // Cancel edit
+    function cancelEdit(id) {
+      fetchKnights();
+    }
+
+    // Cancel add
+    function cancelAdd(button) {
+      button.closest('tr').remove();
+    }
+
+    // Initial load
+    fetchKnights();
+  </script>
 </body>
 </html>

@@ -86,3 +86,81 @@
   /* Optional: load a Google Font for added medieval flair */
   @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
   
+.table-controls {
+    margin-bottom: 1rem;
+    display: flex;
+    gap: 1rem;
+}
+
+.btn {
+    padding: 0.5rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    font-weight: bold;
+    transition: background-color 0.3s;
+}
+
+.btn-primary {
+    background-color: #4a5568;
+    color: white;
+}
+
+.btn-primary:hover {
+    background-color: #2d3748;
+}
+
+.btn-danger {
+    background-color: #e53e3e;
+    color: white;
+}
+
+.btn-danger:hover {
+    background-color: #c53030;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 1rem;
+    background-color: #2d3748;
+    color: white;
+}
+
+th, td {
+    padding: 1rem;
+    text-align: left;
+    border-bottom: 1px solid #4a5568;
+}
+
+th {
+    background-color: #1a202c;
+    font-weight: bold;
+}
+
+tr:hover {
+    background-color: #4a5568;
+}
+
+.edit-mode td {
+    padding: 0.5rem;
+}
+
+.edit-mode input {
+    width: 100%;
+    padding: 0.5rem;
+    border: 1px solid #4a5568;
+    background-color: #1a202c;
+    color: white;
+    border-radius: 4px;
+}
+
+.action-cell {
+    display: flex;
+    gap: 0.5rem;
+}
+
+.hidden {
+    display: none;
+}
+  
