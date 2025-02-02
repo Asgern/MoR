@@ -6,9 +6,9 @@
   }
   
   body {
-    font-family: 'Cinzel', serif; /* A font with medieval flair */
-    background: #f8f1e4; /* A parchment-like background color */
-    color: #3c2a21;
+    font-family: 'Playfair Display', serif; /* More elegant serif font */
+    background: #1a120b url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><path fill="%2328190E" d="M1 3h1v1H1V3zm2-2h1v1H3V1z"/></svg>');
+    color: #e0d5c3;
     line-height: 1.6;
     padding: 10px;
   }
@@ -16,40 +16,64 @@
   /* Header styles */
   header {
     text-align: center;
-    padding: 15px;
-    background: #8b5e3c; /* A deep, rich tone reminiscent of old wood */
-    color: #f8f1e4;
-    border-bottom: 4px solid #d4af37; /* A gold-like accent */
+    padding: 2rem 1rem;
+    background: linear-gradient(15deg, #0a0705 0%, #1a120b 100%);
+    color: #d4c4a6;
+    border-bottom: 3px solid #5d4a36;
+    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
   }
   
   header h1 {
-    font-size: 2.5em;
-    margin-bottom: 10px;
-    word-wrap: break-word;
+    font-family: 'UnifrakturMaguntia', cursive;
+    font-size: 3.5rem;
+    letter-spacing: 3px;
+    text-shadow: 0 0 12px rgba(197, 162, 103, 0.4);
+    line-height: 1.1;
+    margin-bottom: 15px;
+    color: #c5a267;
   }
   
   header .tagline {
-    font-style: italic;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.3rem;
+    letter-spacing: 2px;
+    color: #a9927a;
+    text-transform: uppercase;
   }
   
   /* Main content sections */
   main {
-    margin: 20px auto;
-    max-width: 100%;
+    margin: 2rem auto;
+    max-width: 1200px;
     padding: 15px;
-    background: #fff;
-    border: 2px solid #8b5e3c;
-    box-shadow: 5px 5px 15px rgba(0, 0, 0, 0.3);
-    border-radius: 10px;
+    background: #2a2018;
+    border: 1px solid #3e2e21;
+    border-radius: 12px;
+    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
     overflow-x: auto;
   }
   
   /* Section headings */
   section h2 {
-    font-size: 1.8em;
+    position: relative;
+    padding-left: 1.5rem;
+    font-size: 1.8rem;
+    color: #c5a267;
     margin-bottom: 10px;
-    border-bottom: 2px solid #8b5e3c;
+    border-bottom: 2px solid #5d4a36;
     padding-bottom: 5px;
+  }
+  
+  section h2:before {
+    content: '';
+    position: absolute;
+    left: 0;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 24px;
+    width: 4px;
+    background: linear-gradient(to bottom, #c5a267, #9e814e);
+    border-radius: 2px;
   }
   
   /* Table controls */
@@ -73,49 +97,82 @@
     min-width: 600px; /* Ensures table doesn't get too squeezed */
     border-collapse: collapse;
     margin-top: 1rem;
-    background-color: #2d3748;
-    color: white;
+    background: #1f1812;
+    color: #d4c4a6;
+    border-radius: 8px;
+    overflow: hidden;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
   }
   
   th, td {
     padding: 0.8rem;
     text-align: left;
-    border-bottom: 1px solid #4a5568;
+    border-bottom: 1px solid #3e2e21;
     white-space: nowrap;
+    color: #d4c4a6;
   }
   
   th {
-    background-color: #1a202c;
-    font-weight: bold;
+    background: #382a1f;
+    color: #c5a267;
+    font-weight: 600;
+    letter-spacing: 0.5px;
+    border-bottom: 2px solid #5d4a36 !important;
+  }
+  
+  tr:nth-child(even) {
+    background-color: #281f18;
+  }
+  
+  tr:hover {
+    background-color: #30241b;
   }
   
   /* Button styles */
   .btn {
-    padding: 0.8rem 1rem; /* Larger touch target */
+    padding: 0.6rem 1.2rem;
+    border-radius: 25px;
+    letter-spacing: 0.5px;
+    transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
     border: none;
-    border-radius: 4px;
     cursor: pointer;
     font-weight: bold;
-    transition: background-color 0.3s;
     font-size: 1rem; /* Ensure readable text size */
     min-width: 44px; /* Minimum touch target size */
     min-height: 44px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.3);
   }
   
   .btn-primary {
-    background-color: #4a5568;
-    color: white;
+    background: linear-gradient(to right, #5d4a36, #7d634d);
+    border: 1px solid #6b5642;
+    color: #e0d5c3;
   }
   
   .btn-danger {
-    background-color: #e53e3e;
-    color: white;
+    background: linear-gradient(to right, #6b3d38, #8b534d);
+    border: 1px solid #7d4540;
+  }
+  
+  .btn:hover {
+    box-shadow: 0 4px 12px rgba(197, 162, 103, 0.2);
   }
   
   .action-cell {
     display: flex;
     gap: 0.5rem;
     flex-wrap: wrap;
+  }
+  
+  .action-cell button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+  }
+  
+  .action-cell svg {
+    width: 16px;
+    height: 16px;
   }
   
   /* Edit mode styles */
@@ -125,22 +182,29 @@
   
   .edit-mode input {
     width: 100%;
-    padding: 0.8rem;
-    border: 1px solid #4a5568;
-    background-color: #1a202c;
-    color: white;
+    padding: 0.6rem 1rem;
+    border: 1px solid #5d4a36;
+    background: #382a1f;
+    color: #e0d5c3;
+    transition: border-color 0.3s;
     border-radius: 4px;
     font-size: 1rem;
+  }
+  
+  .edit-mode input:focus {
+    border-color: #c5a267;
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(197, 162, 103, 0.1);
   }
   
   /* Footer styling */
   footer {
     text-align: center;
-    margin-top: 20px;
-    padding: 10px;
-    font-size: 0.9em;
-    color: #3c2a21;
-    border-top: 1px solid #8b5e3c;
+    margin-top: 3rem;
+    padding: 1.5rem;
+    font-size: 0.9rem;
+    color: #c5a267;
+    border-top: 1px solid #5d4a36;
   }
   
   /* Media Queries */
@@ -183,5 +247,15 @@
   }
   
   /* Optional: load a Google Font for added medieval flair */
-  @import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&display=swap');
+  @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@400;600&display=swap');
+  
+  /* Add subtle animations */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+  
+  tr {
+    animation: fadeIn 0.4s ease-out forwards;
+  }
   
