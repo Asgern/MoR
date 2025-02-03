@@ -250,6 +250,18 @@
     th, td {
       padding: 0.6rem;
     }
+  
+    /* Allow the table to scale with the container */
+    .table-wrapper table {
+        min-width: 100%;
+        font-size: 0.9rem; /* Slightly reduce font size for clarity */
+    }
+    
+    /* Reduce padding for table cells so content fits better */
+    .table-wrapper th,
+    .table-wrapper td {
+        padding: 0.5rem;
+    }
   }
   
   @media screen and (max-width: 480px) {
@@ -260,6 +272,20 @@
     section h2 {
       font-size: 1.5em;
     }
+  
+    /* Allow cell content to wrap rather than staying in one long line */
+    .table-wrapper th,
+    .table-wrapper td {
+        white-space: normal;
+    }
+    
+    /* OPTIONAL: Hide the "Titel" column if needed to simplify the view */
+    /*
+    .table-wrapper table th:nth-child(2),
+    .table-wrapper table td:nth-child(2) {
+         display: none;
+    }
+    */
   }
   
   /* Optional: load a Google Font for added medieval flair */
