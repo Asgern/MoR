@@ -1,0 +1,10 @@
+RGB:
+R180
+G41
+B56
+
+
+Secondary:
+R90
+G90
+B90

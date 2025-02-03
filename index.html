@@ -14,196 +14,48 @@
   </header>
 
   <main>
-    <!-- New section to visualize CSV data -->
-    <section id="knights">
-      <h2>Member list</h2>
-      <div class="table-controls">
-        <button class="btn btn-primary" onclick="addNewKnight()">Add New Knight</button>
+    <!-- Tab Navigation -->
+    <div class="tab-container">
+      <ul class="tab-nav">
+        <li><button class="active" data-tab="forside">Forside</button></li>
+        <li><button data-tab="vedtaegter">Formål & Vedtægter</button></li>
+        <li><button data-tab="medlemsoversigt">Medlemsoversigt</button></li>
+        <li><button data-tab="kontakt">Kontakt Os</button></li>
+      </ul>
+
+      <!-- Tab Content -->
+      <div id="forside" class="tab-content active">
+        <iframe src="sider/forside/forside.html" title="Forside"></iframe>
       </div>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th>Member</th>
-              <th>Title</th>
-              <th>Rank</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody id="knights-table-body">
-            <!-- Table content will be dynamically populated -->
-          </tbody>
-        </table>
+      <div id="vedtaegter" class="tab-content">
+        <iframe src="sider/vedtaegter/vedtaegter.html" title="Formål & Vedtægter"></iframe>
       </div>
-    </section>
+      <div id="medlemsoversigt" class="tab-content">
+        <iframe src="sider/medlemsoversigt/medlemsoversigt.html" title="Medlemsoversigt"></iframe>
+      </div>
+      <div id="kontakt" class="tab-content">
+        <iframe src="sider/kontakt/kontakt.html" title="Kontakt Os"></iframe>
+      </div>
+    </div>
   </main>
 
   <footer>
     <p>&copy; 2024 My Website. All rights reserved.</p>
   </footer>
 
-  <script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-
-    // Initialize Supabase client
-    const supabaseUrl = 'https://fcklpwzxixeyxvczrylg.supabase.co'
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZja2xwd3p4aXhleXh2Y3pyeWxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1MDMxODQsImV4cCI6MjA1NDA3OTE4NH0.GoOaAjBPpU03UkbEB0XNIHl44EZuh-jV8YM758_1vXw'
-    const supabase = createClient(supabaseUrl, supabaseKey)
-
-    // Make functions global so they can be used by onclick handlers
-    window.addNewKnight = function() {
-      const tr = document.createElement('tr');
-      tr.classList.add('edit-mode');
-      tr.innerHTML = `
-        <td><input type="text" class="member-input" placeholder="Member name"></td>
-        <td><input type="text" class="title-input" placeholder="Title"></td>
-        <td><input type="number" class="rank-input" placeholder="Rank"></td>
-        <td class="action-cell">
-          <button class="btn btn-primary" onclick="saveNewKnight(this)">Save</button>
-          <button class="btn btn-danger" onclick="cancelAdd(this)">Cancel</button>
-        </td>
-      `;
-      document.getElementById('knights-table-body').prepend(tr);
-    }
-
-    window.saveNewKnight = async function(button) {
-      const tr = button.closest('tr');
-      const knight = {
-        member: tr.querySelector('.member-input').value,
-        title: tr.querySelector('.title-input').value,
-        rank: parseInt(tr.querySelector('.rank-input').value)
-      };
-
-      try {
-        const { data, error } = await supabase
-          .from('knights')
-          .insert([knight])
-          .select();
-
-        if (error) throw error;
-        fetchKnights();
-      } catch (error) {
-        console.error('Error saving knight:', error);
-      }
-    }
-
-    window.editKnight = function(id) {
-      const tr = document.querySelector(`tr[data-id="${id}"]`);
-      const member = tr.cells[0].textContent;
-      const title = tr.cells[1].textContent;
-      const rank = tr.cells[2].textContent;
-
-      tr.classList.add('edit-mode');
-      tr.innerHTML = `
-        <td><input type="text" class="member-input" value="${member}"></td>
-        <td><input type="text" class="title-input" value="${title}"></td>
-        <td><input type="number" class="rank-input" value="${rank}"></td>
-        <td class="action-cell">
-          <button class="btn btn-primary" onclick="saveEdit(${id})">Save</button>
-          <button class="btn btn-danger" onclick="cancelEdit(${id})">Cancel</button>
-        </td>
-      `;
-    }
-
-    window.saveEdit = async function(id) {
-      const tr = document.querySelector(`tr[data-id="${id}"]`);
-      const knight = {
-        member: tr.querySelector('.member-input').value,
-        title: tr.querySelector('.title-input').value,
-        rank: parseInt(tr.querySelector('.rank-input').value)
-      };
-
-      try {
-        const { error } = await supabase
-          .from('knights')
-          .update(knight)
-          .eq('id', id);
-
-        if (error) throw error;
-        fetchKnights();
-      } catch (error) {
-        console.error('Error updating knight:', error);
-      }
-    }
-
-    window.deleteKnight = async function(id) {
-      if (confirm('Are you sure you want to delete this knight?')) {
-        try {
-          const { error } = await supabase
-            .from('knights')
-            .delete()
-            .eq('id', id);
-
-          if (error) throw error;
-          fetchKnights();
-        } catch (error) {
-          console.error('Error deleting knight:', error);
-        }
-      }
-    }
-
-    window.cancelEdit = function(id) {
-      fetchKnights();
-    }
-
-    window.cancelAdd = function(button) {
-      button.closest('tr').remove();
-    }
-
-    // Display knights in the table
-    function displayKnights(knights) {
-      const tbody = document.getElementById('knights-table-body');
-      tbody.innerHTML = '';
-
-      knights.forEach(knight => {
-        const tr = document.createElement('tr');
-        tr.dataset.id = knight.id;
-        tr.innerHTML = `
-          <td>${knight.member}</td>
-          <td>${knight.title}</td>
-          <td>${knight.rank}</td>
-          <td class="action-cell">
-            <button class="btn btn-primary" onclick="editKnight(${knight.id})">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-              </svg>
-              Edit
-            </button>
-            <button class="btn btn-danger" onclick="deleteKnight(${knight.id})">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-              </svg>
-              Delete
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
-
-    // Fetch and display knights
-    async function fetchKnights() {
-      try {
-        console.log('Fetching knights...');
-        const { data: knights, error } = await supabase
-          .from('knights')
-          .select('*')
-          .order('rank', { ascending: false });
-
-        if (error) {
-          console.error('Supabase error:', error);
-          throw error;
-        }
+  <script>
+    // Tab functionality
+    document.querySelectorAll('.tab-nav button').forEach(button => {
+      button.addEventListener('click', () => {
+        // Remove active class from all buttons and content
+        document.querySelectorAll('.tab-nav button').forEach(btn => btn.classList.remove('active'));
+        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
         
-        console.log('Fetched knights:', knights);
-        displayKnights(knights);
-      } catch (error) {
-        console.error('Error fetching knights:', error);
-      }
-    }
-
-    // Initial load
-    fetchKnights();
+        // Add active class to clicked button and corresponding content
+        button.classList.add('active');
+        document.getElementById(button.dataset.tab).classList.add('active');
+      });
+    });
   </script>
 </body>
 </html>
