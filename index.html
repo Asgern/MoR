@@ -4,7 +4,6 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Men Of Responsibility</title>
-  <!-- Link to the updated CSS for a medieval knight theme -->
   <link rel="stylesheet" href="styles.css" />
 </head>
 <body>
@@ -161,7 +160,6 @@
     </section>
   </main>
 
-<<<<<<< HEAD
   <footer>
     <p>&copy; 2024 Men Of Responsibility. All rights reserved.</p>
   </footer>
@@ -360,19 +358,6 @@
         e.preventDefault();
         const section = document.querySelector(this.getAttribute('href'));
         section.scrollIntoView({ behavior: 'smooth' });
-=======
-  <script>
-    // Tab functionality
-    document.querySelectorAll('.tab-nav button').forEach(button => {
-      button.addEventListener('click', () => {
-        // Remove active class from all buttons and content
-        document.querySelectorAll('.tab-nav button').forEach(btn => btn.classList.remove('active'));
-        document.querySelectorAll('.tab-content').forEach(content => content.classList.remove('active'));
-        
-        // Add active class to clicked button and corresponding content
-        button.classList.add('active');
-        document.getElementById(button.dataset.tab).classList.add('active');
->>>>>>> e95082d51c7c40805f53b6624c5d0cc4bed41632
       });
     });
 
