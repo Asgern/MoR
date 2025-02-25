@@ -5,91 +5,321 @@
     box-sizing: border-box;
   }
   
+  html {
+    scroll-behavior: smooth;
+  }
+  
   body {
     font-family: 'Playfair Display', serif; /* More elegant serif font */
     background: #1a120b url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><path fill="%2328190E" d="M1 3h1v1H1V3zm2-2h1v1H3V1z"/></svg>');
     color: #e0d5c3;
     line-height: 1.6;
-    padding: 10px;
+    min-height: 100vh;
+  }
+  
+  /* Navigation styles */
+  .main-nav {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    background: rgba(26, 18, 11, 0.95);
+    backdrop-filter: blur(10px);
+    z-index: 1000;
+    border-bottom: 1px solid #5d4a36;
+    padding: 1rem 0;
+  }
+  
+  .main-nav ul {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    gap: 2rem;
+  }
+  
+  .main-nav a {
+    color: #d4c4a6;
+    text-decoration: none;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.1rem;
+    padding: 0.5rem 1rem;
+    transition: all 0.3s ease;
+    position: relative;
+  }
+  
+  .main-nav a:hover {
+    color: #c5a267;
+  }
+  
+  .main-nav a::after {
+    content: '';
+    position: absolute;
+    bottom: -2px;
+    left: 0;
+    width: 100%;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #c5a267, transparent);
+    transform: scaleX(0);
+    transition: transform 0.3s ease;
+  }
+  
+  .main-nav a:hover::after {
+    transform: scaleX(1);
   }
   
   /* Header styles */
   header {
     text-align: center;
-    padding: 2rem 1rem;
-    background: linear-gradient(15deg, #0a0705 0%, #1a120b 100%);
+    padding: 8rem 1rem 4rem;
+    background: linear-gradient(15deg, rgba(10, 7, 5, 0.9) 0%, rgba(26, 18, 11, 0.9) 100%),
+                url('path-to-your-header-image.jpg') center/cover;
     color: #d4c4a6;
-    border-bottom: 3px solid #5d4a36;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
+    position: relative;
+    overflow: hidden;
+  }
+  
+  .header-content {
+    position: relative;
+    z-index: 1;
   }
   
   header h1 {
     font-family: 'Cinzel Decorative', cursive;
-    font-size: 3.2rem;
+    font-size: 4rem;
     letter-spacing: 2px;
     text-shadow: 1px 1px 2px rgba(197, 162, 103, 0.4), 
                  0 0 1em rgba(90, 70, 40, 0.4),
                  0 0 0.2em rgba(90, 70, 40, 0.3);
     color: #d4c4a6;
-    margin-bottom: 15px;
-    position: relative;
-    display: inline-block;
-    padding: 0 15px;
-  }
-  
-  header h1::after {
-    content: '';
-    position: absolute;
-    bottom: -8px;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 60%;
-    height: 2px;
-    background: linear-gradient(to right, transparent, #c5a267, transparent);
-    box-shadow: 0 0 8px rgba(197, 162, 103, 0.3);
+    margin-bottom: 1rem;
+    animation: fadeInDown 1s ease-out;
   }
   
   header .tagline {
     font-family: 'Cinzel Decorative', cursive;
-    font-size: 1.3rem;
+    font-size: 1.5rem;
     letter-spacing: 2px;
     color: #a9927a;
     text-transform: uppercase;
+    animation: fadeInUp 1s ease-out 0.5s both;
   }
   
-  /* Main content sections */
-  main {
-    margin: 2rem auto;
-    max-width: 1200px;
-    padding: 15px;
-    background: #2a2018;
-    border: 1px solid #3e2e21;
-    border-radius: 12px;
-    box-shadow: 0 8px 30px rgba(0,0,0,0.3);
-    overflow-x: auto;
-  }
-  
-  /* Section headings */
-  section h2 {
+  /* Section styles */
+  .section {
+    padding: 6rem 2rem;
+    min-height: 100vh;
+    display: flex;
+    align-items: center;
     position: relative;
-    padding-left: 1.5rem;
-    font-size: 1.8rem;
-    color: #c5a267;
-    margin-bottom: 10px;
-    border-bottom: 2px solid #5d4a36;
-    padding-bottom: 5px;
   }
   
-  section h2:before {
+  .section:nth-child(odd) {
+    background: rgba(42, 32, 24, 0.6);
+  }
+  
+  .section-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    width: 100%;
+  }
+  
+  .section h2 {
+    font-size: 2.5rem;
+    color: #c5a267;
+    margin-bottom: 2rem;
+    text-align: center;
+    font-family: 'Cinzel Decorative', cursive;
+    position: relative;
+    padding-bottom: 1rem;
+  }
+  
+  .section h2::after {
     content: '';
     position: absolute;
-    left: 0;
-    top: 50%;
-    transform: translateY(-50%);
-    height: 24px;
-    width: 4px;
-    background: linear-gradient(to bottom, #c5a267, #9e814e);
-    border-radius: 2px;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 2px;
+    background: linear-gradient(to right, transparent, #c5a267, transparent);
+  }
+  
+  /* Info cards */
+  .info-cards {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    gap: 2rem;
+    margin-top: 3rem;
+  }
+  
+  .info-card {
+    background: #2a2018;
+    padding: 2rem;
+    border-radius: 8px;
+    border: 1px solid #5d4a36;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .info-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 20px rgba(0, 0, 0, 0.2);
+  }
+  
+  .info-card h3 {
+    color: #c5a267;
+    margin-bottom: 1rem;
+    font-family: 'Cinzel Decorative', cursive;
+    font-size: 1.5rem;
+  }
+  
+  /* Purpose content */
+  .purpose-content {
+    max-width: 800px;
+    margin: 0 auto;
+    text-align: center;
+  }
+  
+  .purpose-content p {
+    font-size: 1.2rem;
+    margin-bottom: 2rem;
+    line-height: 1.8;
+  }
+  
+  .bylaws-download {
+    margin-top: 3rem;
+  }
+  
+  .download-button {
+    display: inline-block;
+    padding: 1rem 2rem;
+    background: linear-gradient(to right, #5d4a36, #7d634d);
+    color: #e0d5c3;
+    text-decoration: none;
+    border-radius: 30px;
+    font-family: 'Cinzel Decorative', cursive;
+    transition: all 0.3s ease;
+    border: 1px solid #6b5642;
+  }
+  
+  .download-button:hover {
+    background: linear-gradient(to right, #7d634d, #9e814e);
+    transform: translateY(-2px);
+    box-shadow: 0 5px 15px rgba(197, 162, 103, 0.2);
+  }
+  
+  /* Members section */
+  .members-container {
+    background: #2a2018;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #5d4a36;
+  }
+  
+  /* Contact section */
+  .contact-grid {
+    display: grid;
+    grid-template-columns: 1fr 2fr;
+    gap: 3rem;
+    margin-top: 2rem;
+  }
+  
+  .contact-info {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem;
+  }
+  
+  .contact-form {
+    background: #2a2018;
+    padding: 2rem;
+    border-radius: 12px;
+    border: 1px solid #5d4a36;
+  }
+  
+  /* Footer */
+  footer {
+    text-align: center;
+    padding: 2rem;
+    background: #1a120b;
+    border-top: 1px solid #5d4a36;
+  }
+  
+  /* Animations */
+  @keyframes fadeInDown {
+    from {
+      opacity: 0;
+      transform: translateY(-20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  @keyframes fadeInUp {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  
+  /* Responsive design */
+  @media screen and (max-width: 768px) {
+    .main-nav {
+      padding: 0.5rem;
+    }
+  
+    .main-nav ul {
+      gap: 1rem;
+    }
+  
+    .main-nav a {
+      font-size: 0.9rem;
+      padding: 0.3rem 0.6rem;
+    }
+  
+    header {
+      padding: 6rem 1rem 3rem;
+    }
+  
+    header h1 {
+      font-size: 2.5rem;
+    }
+  
+    .section {
+      padding: 4rem 1rem;
+    }
+  
+    .section h2 {
+      font-size: 2rem;
+    }
+  
+    .contact-grid {
+      grid-template-columns: 1fr;
+    }
+  
+    .info-cards {
+      grid-template-columns: 1fr;
+    }
+  }
+  
+  @media screen and (max-width: 480px) {
+    header h1 {
+      font-size: 2rem;
+    }
+  
+    .main-nav ul {
+      flex-wrap: wrap;
+      justify-content: center;
+    }
+  
+    .section {
+      padding: 3rem 1rem;
+    }
   }
   
   /* Table controls */
@@ -211,282 +441,6 @@
     border-color: #c5a267;
     outline: none;
     box-shadow: 0 0 0 3px rgba(197, 162, 103, 0.1);
-  }
-  
-  /* Footer styling */
-  footer {
-    text-align: center;
-    margin-top: 3rem;
-    padding: 1.5rem;
-    font-size: 0.9rem;
-    color: #c5a267;
-    border-top: 1px solid #5d4a36;
-  }
-  
-  /* Media Queries */
-  @media screen and (max-width: 768px) {
-    body {
-      padding: 5px;
-    }
-  
-    header h1 {
-      font-size: 2em;
-    }
-  
-    main {
-      padding: 10px;
-      margin: 10px auto;
-    }
-  
-    .btn {
-      width: 100%; /* Full width buttons on mobile */
-    }
-  
-    .action-cell {
-      flex-direction: column;
-      gap: 0.3rem;
-    }
-  
-    th, td {
-      padding: 0.6rem;
-    }
-  
-    /* Allow the table to scale with the container */
-    .table-wrapper table {
-        min-width: 100%;
-        font-size: 0.9rem; /* Slightly reduce font size for clarity */
-    }
-    
-    /* Reduce padding for table cells so content fits better */
-    .table-wrapper th,
-    .table-wrapper td {
-        padding: 0.5rem;
-    }
-  }
-  
-  @media screen and (max-width: 480px) {
-    header h1 {
-      font-size: 1.8em;
-    }
-  
-    section h2 {
-      font-size: 1.5em;
-    }
-  
-    /* Allow cell content to wrap rather than staying in one long line */
-    .table-wrapper th,
-    .table-wrapper td {
-        white-space: normal;
-    }
-    
-    /* OPTIONAL: Hide the "Titel" column if needed to simplify the view */
-    /*
-    .table-wrapper table th:nth-child(2),
-    .table-wrapper table td:nth-child(2) {
-         display: none;
-    }
-    */
-  }
-  
-  /* Optional: load a Google Font for added medieval flair */
-  @import url('https://fonts.googleapis.com/css2?family=UnifrakturMaguntia&family=Cinzel+Decorative:wght@700&family=Playfair+Display:wght@400;600&display=swap');
-  
-  /* Add subtle animations */
-  @keyframes fadeIn {
-    from { opacity: 0; transform: translateY(10px); }
-    to { opacity: 1; transform: translateY(0); }
-  }
-  
-  tr {
-    animation: fadeIn 0.4s ease-out forwards;
-  }
-  
-  /* Member Score Table Styles */
-  #member-scores {
-    margin-bottom: 2rem;
-  }
-  
-  #member-scores table {
-    width: 100%;
-    min-width: 600px;
-    border-collapse: collapse;
-    margin-top: 1rem;
-    background: #1f1812;
-    color: #d4c4a6;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
-  }
-  
-  #member-scores th, 
-  #member-scores td {
-    padding: 0.8rem;
-    text-align: left;
-    border-bottom: 1px solid #3e2e21;
-    white-space: nowrap;
-    color: #d4c4a6;
-  }
-  
-  #member-scores th {
-    background: #382a1f;
-    color: #c5a267;
-    font-weight: 600;
-    letter-spacing: 0.5px;
-    border-bottom: 2px solid #5d4a36 !important;
-  }
-  
-  #member-scores tr:nth-child(even) {
-    background-color: #281f18;
-  }
-  
-  #member-scores tr:hover {
-    background-color: #30241b;
-  }
-  
-  /* Text Box Styles */
-  .text-box {
-    max-width: 600px;
-    margin: 2rem auto;
-    padding: 20px;
-    background-color: #1f1812;
-    border: 5px solid #5d4a36;
-    border-radius: 15px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.6);
-    text-align: center;
-    line-height: 1.8;
-    font-size: 1.2em;
-    color: #d4c4a6;
-  }
-  
-  .text-box h1 {
-    font-size: 1.8em;
-    margin-bottom: 10px;
-    color: #c5a267;
-  }
-  
-  .text-box p {
-    white-space: pre-line;
-    color: #d4c4a6;
-  }
-  
-  /* Tab Navigation Styles */
-  .tab-container {
-    width: 100%;
-    margin: 2rem 0;
-    background: #1f1812;
-    border-radius: 8px;
-    overflow: hidden;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.3);
-    height: calc(100vh - 250px); /* Adjust for header and margins */
-    min-height: 600px;
-    display: flex;
-    flex-direction: column;
-  }
-  
-  .tab-nav {
-    display: flex;
-    background: #2a2018;
-    border-bottom: 2px solid #5d4a36;
-    padding: 0;
-    margin: 0;
-    list-style: none;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    flex-shrink: 0;
-  }
-  
-  .tab-nav li {
-    flex: 0 0 auto;
-  }
-  
-  .tab-nav button {
-    background: none;
-    border: none;
-    padding: 1rem 1.5rem;
-    color: #d4c4a6;
-    font-family: 'Cinzel Decorative', cursive;
-    font-size: 1rem;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    position: relative;
-    white-space: nowrap;
-    min-height: 44px; /* Mobile touch target */
-  }
-  
-  .tab-nav button:hover {
-    color: #c5a267;
-    background: #382a1f;
-  }
-  
-  .tab-nav button.active {
-    color: #c5a267;
-    background: #1f1812;
-  }
-  
-  .tab-nav button.active::after {
-    content: '';
-    position: absolute;
-    bottom: -2px;
-    left: 0;
-    width: 100%;
-    height: 2px;
-    background: #c5a267;
-    box-shadow: 0 0 8px rgba(197, 162, 103, 0.3);
-  }
-  
-  .tab-content {
-    padding: 0;
-    display: none;
-    animation: fadeIn 0.5s ease-in-out;
-    flex: 1;
-    position: relative;
-  }
-  
-  .tab-content.active {
-    display: block;
-    height: 100%;
-  }
-  
-  .tab-content iframe {
-    width: 100%;
-    height: 100%;
-    border: none;
-    background: #1f1812;
-    display: block;
-  }
-  
-  /* Mobile Optimizations */
-  @media screen and (max-width: 768px) {
-    .tab-container {
-        margin: 1rem 0;
-        height: calc(100vh - 180px);
-    }
-
-    .tab-nav {
-        flex-wrap: nowrap;
-        justify-content: flex-start;
-    }
-
-    .tab-nav button {
-        padding: 0.8rem 1rem;
-        font-size: 0.9rem;
-    }
-
-    main {
-        padding: 8px;
-    }
-
-    header {
-        padding: 1rem;
-    }
-
-    header h1 {
-        font-size: 2rem;
-    }
-
-    .tagline {
-        font-size: 1rem;
-    }
   }
   
   /* Form Styles Enhancement */
