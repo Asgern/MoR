@@ -1,3 +1,6 @@
+/* Import fonts */
+@import url('https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;500;600;700&family=Cinzel+Decorative:wght@400;700;900&display=swap');
+
 /* General reset and base styles */
 * {
     margin: 0;
@@ -5,6 +8,8 @@
     box-sizing: border-box;
     scrollbar-width: none; /* Firefox */
     -ms-overflow-style: none; /* IE and Edge */
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   *::-webkit-scrollbar {
@@ -19,12 +24,13 @@
   }
   
   body {
-    font-family: 'Playfair Display', serif; /* More elegant serif font */
+    font-family: 'Playfair Display', Georgia, 'Times New Roman', serif;
     background: #1a120b url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" width="4" height="4" viewBox="0 0 4 4"><path fill="%2328190E" d="M1 3h1v1H1V3zm2-2h1v1H3V1z"/></svg>');
     color: #e0d5c3;
     line-height: 1.6;
     min-height: 100vh;
     overflow-x: hidden;
+    font-size: 16px;
   }
   
   /* Navigation styles */
@@ -35,6 +41,7 @@
     right: 0;
     background: rgba(26, 18, 11, 0.95);
     backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     z-index: 1000;
     border-bottom: 1px solid #5d4a36;
     padding: 1rem 0;
@@ -51,7 +58,7 @@
   .main-nav a {
     color: #d4c4a6;
     text-decoration: none;
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
     font-size: 1.1rem;
     padding: 0.5rem 1rem;
     transition: all 0.3s ease;
@@ -96,7 +103,7 @@
   }
   
   header h1 {
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
     font-size: 4rem;
     letter-spacing: 2px;
     text-shadow: 1px 1px 2px rgba(197, 162, 103, 0.4), 
@@ -108,7 +115,7 @@
   }
   
   header .tagline {
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
     font-size: 1.5rem;
     letter-spacing: 2px;
     color: #a9927a;
@@ -138,11 +145,11 @@
   }
   
   .section h2 {
+    font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
     font-size: 2.5rem;
     color: #c5a267;
     margin-bottom: 2rem;
     text-align: center;
-    font-family: 'Cinzel Decorative', cursive;
     position: relative;
     padding-bottom: 1rem;
   }
@@ -182,7 +189,7 @@
   .info-card h3 {
     color: #c5a267;
     margin-bottom: 1rem;
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
     font-size: 1.5rem;
   }
   
@@ -210,7 +217,7 @@
     color: #e0d5c3;
     text-decoration: none;
     border-radius: 30px;
-    font-family: 'Cinzel Decorative', cursive;
+    font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
     transition: all 0.3s ease;
     border: 1px solid #6b5642;
   }
@@ -294,7 +301,7 @@
     }
   
     .main-nav a {
-      font-size: 0.9rem;
+      font-size: 1rem;
       padding: 0.3rem 0.6rem;
     }
   
@@ -303,7 +310,7 @@
     }
   
     header h1 {
-      font-size: 2.5rem;
+      font-size: 2rem !important;
     }
   
     .section {
@@ -311,7 +318,7 @@
     }
   
     .section h2 {
-      font-size: 2rem;
+      font-size: 1.75rem !important;
     }
   
     .contact-grid {
@@ -326,6 +333,10 @@
       margin: -1rem;
       padding: 1rem;
       width: calc(100% + 2rem);
+    }
+  
+    body {
+      font-size: 14px;
     }
   }
   
@@ -523,5 +534,10 @@
   button[type="submit"]:hover {
     background: linear-gradient(to right, #7d634d, #9e814e);
     box-shadow: 0 4px 12px rgba(197, 162, 103, 0.2);
+  }
+  
+  /* Update all other Cinzel Decorative instances */
+  h1, h2, h3, .download-button {
+    font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
   }
   
