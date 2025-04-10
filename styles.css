@@ -541,3 +541,50 @@
     font-family: 'Cinzel Decorative', 'Playfair Display', Georgia, serif;
   }
   
+  /* Responsive table styles */
+  @media screen and (max-width: 768px) {
+    .table-wrapper {
+      margin: 0 -1rem;
+      padding: 0 1rem;
+    }
+  
+    th, td {
+      padding: 0.75rem;
+    }
+  
+    /* Limit title column width on mobile */
+    td:nth-child(2) {
+      max-width: 150px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+  
+    /* Make action buttons more compact */
+    .action-cell {
+      padding: 0.5rem;
+    }
+  
+    .action-cell button {
+      padding: 0.5rem;
+    }
+  
+    .action-cell svg {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  
+  /* Make Add New Member button more compact on mobile */
+  @media screen and (max-width: 480px) {
+    .table-controls .btn {
+      padding: 0.5rem 1rem;
+      font-size: 0.9rem;
+    }
+  
+    .table-controls .btn-icon {
+      width: 16px;
+      height: 16px;
+    }
+  }
+  
