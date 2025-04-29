@@ -66,6 +66,8 @@
           </p>
           <div class="bylaws-download">
             <h3>Lodge Bylaws</h3>
+            <!-- Removed iframe due to Content Security Policy restrictions -->
+            <!-- 
             <div class="document-preview">
               <iframe 
                 src="https://drive.google.com/file/d/108vcWiJdiOs4QD7AJqrZNkfk19o5mmid/preview" 
@@ -76,6 +78,7 @@
                 title="Lodge Bylaws Document">
               </iframe>
             </div>
+            -->
             <a href="https://drive.google.com/file/d/108vcWiJdiOs4QD7AJqrZNkfk19o5mmid/view?usp=drivesdk" target="_blank" class="download-button">
               Open in Google Drive
             </a>
@@ -112,6 +115,23 @@
               Add New Member
             </button>
           </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Test Section -->
+    <section id="test" class="section">
+      <div class="section-content">
+        <h2>Test - CSV Data</h2>
+        <div class="table-wrapper">
+          <table id="csv-data-table">
+            <thead>
+              <!-- Headers will be dynamically populated -->
+            </thead>
+            <tbody id="csv-table-body">
+              <!-- Table content will be dynamically populated -->
+            </tbody>
+          </table>
         </div>
       </div>
     </section>
@@ -337,6 +357,94 @@
       }
     }
 
+    // --- CSV Data Handling ---
+
+    async function fetchCsvData() {
+      const csvUrl = 'https://docs.google.com/spreadsheets/d/e/2PACX-1vRRq-HmzAfEDg859l20cpbjUVWo8RX4C7dnB_Nvgk3jyI3zKFEogM_T7be_Nx0r-N2nVWf38S63I7kT/pub?gid=0&single=true&output=csv';
+      // Use a CORS proxy to bypass browser restrictions when fetching from a local file
+      const proxyUrl = `https://api.allorigins.win/raw?url=${encodeURIComponent(csvUrl)}`;
+      try {
+        // Fetch using the proxy URL
+        const response = await fetch(proxyUrl);
+        if (!response.ok) {
+          throw new Error(`HTTP error! status: ${response.status}`);
+        }
+        const csvText = await response.text();
+        parseAndDisplayCsv(csvText);
+      } catch (error) {
+        console.error('Error fetching CSV data:', error);
+        alert('An error occurred while fetching the CSV data.');
+        // Optionally display an error message in the table area
+        const tbody = document.getElementById('csv-table-body');
+        tbody.innerHTML = '<tr><td colspan="100%">Error loading data. Please try again later.</td></tr>';
+      }
+    }
+
+    function parseAndDisplayCsv(csvText) {
+      console.log('Raw CSV Text:', csvText); // Log raw text for debugging
+      // Use regex to split by newline characters (\n or \r\n)
+      const lines = csvText.trim().split(/\r?\n/);
+      console.log(`Found ${lines.length} lines after splitting.`); // Log line count
+      
+      // Check if there are enough lines for headers and data
+      if (lines.length < 3) {
+          console.error("CSV data is too short or improperly formatted.");
+          const tbody = document.getElementById('csv-table-body');
+          tbody.innerHTML = '<tr><td colspan="100%">CSV data format error.</td></tr>';
+          return;
+      }
+
+      // Headers are on the second line (index 1), skip the first line (index 0 which is just commas)
+      const rawHeaders = lines[1].split(',');
+      // Clean up headers (remove extra quotes or spaces if any, remove point values)
+      const headers = rawHeaders.map(h => h.trim().split('=')[0].trim()).filter(h => h); // Filter out empty headers potentially caused by leading commas
+
+      // Data starts from the third line (index 2)
+      const dataRows = lines.slice(2).map(line => {
+          // Basic CSV parsing, assuming no commas within fields
+          return line.split(',').map(cell => cell.trim());
+      });
+
+      displayCsvData(headers, dataRows);
+    }
+
+    function displayCsvData(headers, dataRows) {
+      const table = document.getElementById('csv-data-table');
+      const thead = table.querySelector('thead');
+      const tbody = document.getElementById('csv-table-body');
+
+      // Clear previous content
+      thead.innerHTML = '';
+      tbody.innerHTML = '';
+
+      // Populate headers
+      const headerRow = document.createElement('tr');
+      headers.forEach(headerText => {
+        if (headerText) { // Only add non-empty headers
+            const th = document.createElement('th');
+            th.textContent = headerText;
+            headerRow.appendChild(th);
+        }
+      });
+      thead.appendChild(headerRow);
+
+      // Populate data rows
+      dataRows.forEach(rowData => {
+        const tr = document.createElement('tr');
+        // Ensure rowData has the same number of cells as headers
+        for (let i = 0; i < headers.length; i++) {
+            const td = document.createElement('td');
+            td.textContent = rowData[i] !== undefined ? rowData[i] : ''; // Handle potentially missing cells
+            tr.appendChild(td);
+        }
+        tbody.appendChild(tr);
+      });
+        
+      if (dataRows.length === 0) {
+        tbody.innerHTML = `<tr><td colspan="${headers.length || 1}">No data available.</td></tr>`;
+      }
+    }
+
     // Smooth scrolling for navigation
     document.querySelectorAll('nav a').forEach(anchor => {
       anchor.addEventListener('click', function(e) {
@@ -348,6 +456,7 @@
 
     // Initial load
     fetchKnights();
+    fetchCsvData(); // Fetch CSV data on load
   </script>
 </body>
 </html>
