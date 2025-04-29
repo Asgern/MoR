@@ -110,217 +110,253 @@
     import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
 
     // Initialize Supabase client
-    const supabaseUrl = 'https://fcklpwzxixeyxvczrylg.supabase.co'
-    const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZja2xwd3p4aXhleXh2Y3pyeWxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1MDMxODQsImV4cCI6MjA1NDA3OTE4NH0.GoOaAjBPpU03UkbEB0XNIHl44EZuh-jV8YM758_1vXw'
-    const supabase = createClient(supabaseUrl, supabaseKey)
+    // const supabaseUrl = 'https://fcklpwzxixeyxvczrylg.supabase.co'
+    // const supabaseKey = 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImZja2xwd3p4aXhleXh2Y3pyeWxnIiwicm9sZSI6ImFub24iLCJpYXQiOjE3Mzg1MDMxODQsImV4cCI6MjA1NDA3OTE4NH0.GoOaAjBPpU03UkbEB0XNIHl44EZuh-jV8YM758_1vXw'
+    // const supabase = createClient(supabaseUrl, supabaseKey)
 
     // Password protection
-    const ADMIN_PASSWORD = 'far';
-    let isAuthenticated = false;
+    // const ADMIN_PASSWORD = 'far';
+    // let isAuthenticated = false;
 
-    function checkAuth() {
-      if (!isAuthenticated) {
-        const password = prompt('Please enter the admin password:');
-        if (password === ADMIN_PASSWORD) {
-          isAuthenticated = true;
-          return true;
-        } else {
-          alert('Incorrect password');
-          return false;
-        }
-      }
-      return true;
-    }
+    // function checkAuth() {
+    //   if (!isAuthenticated) {
+    //     const password = prompt('Please enter the admin password:');
+    //     if (password === ADMIN_PASSWORD) {
+    //       isAuthenticated = true;
+    //       return true;
+    //     } else {
+    //       alert('Incorrect password');
+    //       return false;
+    //     }
+    //   }
+    //   return true;
+    // }
 
     // Make functions global
-    window.addNewKnight = function() {
-      if (!checkAuth()) return;
+    // window.addNewKnight = function() {
+    //   if (!checkAuth()) return;
       
-      const tr = document.createElement('tr');
-      tr.classList.add('edit-mode');
-      tr.innerHTML = `
-        <td><input type="text" class="member-input" placeholder="Member name" required></td>
-        <td><input type="text" class="title-input" placeholder="Title" required></td>
-        <td><input type="number" class="rank-input" placeholder="Rank" required></td>
-        <td class="action-cell">
-          <button class="btn btn-primary" onclick="saveNewKnight(this)" aria-label="Save">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-            </svg>
-          </button>
-          <button class="btn btn-danger" onclick="cancelAdd(this)" aria-label="Cancel">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </td>
-      `;
-      document.getElementById('knights-table-body').prepend(tr);
-    }
+    //   const tr = document.createElement('tr');
+    //   tr.classList.add('edit-mode');
+    //   tr.innerHTML = `
+    //     <td><input type="text" class="member-input" placeholder="Member name" required></td>
+    //     <td><input type="text" class="title-input" placeholder="Title" required></td>
+    //     <td><input type="number" class="rank-input" placeholder="Rank" required></td>
+    //     <td class="action-cell">
+    //       <button class="btn btn-primary" onclick="saveNewKnight(this)" aria-label="Save">
+    //         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
+    //           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+    //         </svg>
+    //       </button>
+    //       <button class="btn btn-danger" onclick="cancelAdd(this)" aria-label="Cancel">
+    //         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
+    //           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    //         </svg>
+    //       </button>
+    //     </td>
+    //   `;
+    //   document.getElementById('knights-table-body').prepend(tr);
+    // }
 
-    window.saveNewKnight = async function(button) {
-      if (!checkAuth()) return;
+    // window.saveNewKnight = async function(button) {
+    //   if (!checkAuth()) return;
       
-      const tr = button.closest('tr');
-      const memberInput = tr.querySelector('.member-input');
-      const titleInput = tr.querySelector('.title-input');
-      const rankInput = tr.querySelector('.rank-input');
+    //   const tr = button.closest('tr');
+    //   const memberInput = tr.querySelector('.member-input');
+    //   const titleInput = tr.querySelector('.title-input');
+    //   const rankInput = tr.querySelector('.rank-input');
 
-      if (!memberInput.value || !titleInput.value || !rankInput.value) {
-        alert('All fields must be filled');
-        return;
-      }
+    //   if (!memberInput.value || !titleInput.value || !rankInput.value) {
+    //     alert('All fields must be filled');
+    //     return;
+    //   }
 
-      const knight = {
-        member: memberInput.value,
-        title: titleInput.value,
-        rank: parseInt(rankInput.value)
-      };
+    //   const knight = {
+    //     member: memberInput.value,
+    //     title: titleInput.value,
+    //     rank: parseInt(rankInput.value)
+    //   };
 
-      try {
-        const { data, error } = await supabase
-          .from('knights')
-          .insert([knight])
-          .select();
+    //   try {
+    //     const { data, error } = await supabase
+    //       .from('knights')
+    //       .insert([knight])
+    //       .select();
 
-        if (error) throw error;
-        fetchKnights();
-      } catch (error) {
-        console.error('Error saving knight:', error);
-        alert('An error occurred while saving the member');
-      }
-    }
+    //     if (error) throw error;
+    //     fetchKnights();
+    //   } catch (error) {
+    //     console.error('Error saving knight:', error);
+    //     alert('An error occurred while saving the member');
+    //   }
+    // }
 
-    window.editKnight = function(id) {
-      if (!checkAuth()) return;
+    // window.editKnight = function(id) {
+    //   if (!checkAuth()) return;
       
-      const tr = document.querySelector(`tr[data-id="${id}"]`);
-      const member = tr.cells[0].textContent;
-      const title = tr.cells[1].textContent;
-      const rank = tr.cells[2].textContent;
+    //   const tr = document.querySelector(`tr[data-id="${id}"]`);
+    //   const member = tr.cells[0].textContent;
+    //   const title = tr.cells[1].textContent;
+    //   const rank = tr.cells[2].textContent;
 
-      tr.classList.add('edit-mode');
-      tr.innerHTML = `
-        <td><input type="text" class="member-input" value="${member}" required></td>
-        <td><input type="text" class="title-input" value="${title}" required></td>
-        <td><input type="number" class="rank-input" value="${rank}" required></td>
-        <td class="action-cell">
-          <button class="btn btn-primary" onclick="saveEdit(${id})" aria-label="Save">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
-            </svg>
-          </button>
-          <button class="btn btn-danger" onclick="cancelEdit(${id})" aria-label="Cancel">
-            <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
-              <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
-            </svg>
-          </button>
-        </td>
-      `;
-    }
+    //   tr.classList.add('edit-mode');
+    //   tr.innerHTML = `
+    //     <td><input type="text" class="member-input" value="${member}" required></td>
+    //     <td><input type="text" class="title-input" value="${title}" required></td>
+    //     <td><input type="number" class="rank-input" value="${rank}" required></td>
+    //     <td class="action-cell">
+    //       <button class="btn btn-primary" onclick="saveEdit(${id})" aria-label="Save">
+    //         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
+    //           <path stroke-linecap="round" stroke-linejoin="round" d="M4.5 12.75l6 6 9-13.5" />
+    //         </svg>
+    //       </button>
+    //       <button class="btn btn-danger" onclick="cancelEdit(${id})" aria-label="Cancel">
+    //         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
+    //           <path stroke-linecap="round" stroke-linejoin="round" d="M6 18L18 6M6 6l12 12" />
+    //         </svg>
+    //       </button>
+    //     </td>
+    //   `;
+    // }
 
-    window.saveEdit = async function(id) {
-      if (!checkAuth()) return;
+    // window.saveEdit = async function(id) {
+    //   if (!checkAuth()) return;
       
-      const tr = document.querySelector(`tr[data-id="${id}"]`);
-      const memberInput = tr.querySelector('.member-input');
-      const titleInput = tr.querySelector('.title-input');
-      const rankInput = tr.querySelector('.rank-input');
+    //   const tr = document.querySelector(`tr[data-id="${id}"]`);
+    //   const memberInput = tr.querySelector('.member-input');
+    //   const titleInput = tr.querySelector('.title-input');
+    //   const rankInput = tr.querySelector('.rank-input');
 
-      if (!memberInput.value || !titleInput.value || !rankInput.value) {
-        alert('All fields must be filled');
-        return;
-      }
+    //   if (!memberInput.value || !titleInput.value || !rankInput.value) {
+    //     alert('All fields must be filled');
+    //     return;
+    //   }
 
-      const knight = {
-        member: memberInput.value,
-        title: titleInput.value,
-        rank: parseInt(rankInput.value)
-      };
+    //   const knight = {
+    //     member: memberInput.value,
+    //     title: titleInput.value,
+    //     rank: parseInt(rankInput.value)
+    //   };
 
-      try {
-        const { error } = await supabase
-          .from('knights')
-          .update(knight)
-          .eq('id', id);
+    //   try {
+    //     const { error } = await supabase
+    //       .from('knights')
+    //       .update(knight)
+    //       .eq('id', id);
 
-        if (error) throw error;
-        fetchKnights();
-      } catch (error) {
-        console.error('Error updating knight:', error);
-        alert('An error occurred while updating the member');
-      }
-    }
+    //     if (error) throw error;
+    //     fetchKnights();
+    //   } catch (error) {
+    //     console.error('Error updating knight:', error);
+    //     alert('An error occurred while updating the member');
+    //   }
+    // }
 
-    window.deleteKnight = async function(id) {
-      if (!checkAuth()) return;
+    // window.deleteKnight = async function(id) {
+    //   if (!checkAuth()) return;
       
-      if (confirm('Are you sure you want to delete this member?')) {
-        try {
-          const { error } = await supabase
-            .from('knights')
-            .delete()
-            .eq('id', id);
+    //   if (confirm('Are you sure you want to delete this member?')) {
+    //     try {
+    //       const { error } = await supabase
+    //         .from('knights')
+    //         .delete()
+    //         .eq('id', id);
 
-          if (error) throw error;
-          fetchKnights();
-        } catch (error) {
-          console.error('Error deleting knight:', error);
-          alert('An error occurred while deleting the member');
-        }
-      }
-    }
+    //       if (error) throw error;
+    //       fetchKnights();
+    //     } catch (error) {
+    //       console.error('Error deleting knight:', error);
+    //       alert('An error occurred while deleting the member');
+    //     }
+    //   }
+    // }
 
-    window.cancelEdit = function(id) {
-      fetchKnights();
-    }
+    // window.cancelEdit = function(id) {
+    //   fetchKnights();
+    // }
 
-    window.cancelAdd = function(button) {
-      button.closest('tr').remove();
-    }
+    // window.cancelAdd = function(button) {
+    //   button.closest('tr').remove();
+    // }
 
-    function displayKnights(knights) {
-      const tbody = document.getElementById('knights-table-body');
-      tbody.innerHTML = '';
+    // function displayKnights(knights) {
+    //   const tbody = document.getElementById('knights-table-body');
+    //   tbody.innerHTML = '';
 
-      knights.forEach(knight => {
-        const tr = document.createElement('tr');
-        tr.dataset.id = knight.id;
-        tr.innerHTML = `
-          <td>${knight.member}</td>
-          <td>${knight.title}</td>
-          <td>${knight.rank}</td>
-          <td class="action-cell">
-            <button class="btn btn-primary" onclick="editKnight(${knight.id})" aria-label="Edit">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
-              </svg>
-            </button>
-            <button class="btn btn-danger" onclick="deleteKnight(${knight.id})" aria-label="Delete">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
-              </svg>
-            </button>
-          </td>
-        `;
-        tbody.appendChild(tr);
-      });
-    }
+    //   knights.forEach(knight => {
+    //     const tr = document.createElement('tr');
+    //     tr.dataset.id = knight.id;
+    //     tr.innerHTML = `
+    //       <td>${knight.member}</td>
+    //       <td>${knight.title}</td>
+    //       <td>${knight.rank}</td>
+    //       <td class="action-cell">
+    //         <button class="btn btn-primary" onclick="editKnight(${knight.id})" aria-label="Edit">
+    //           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
+    //             <path stroke-linecap="round" stroke-linejoin="round" d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L10.582 16.07a4.5 4.5 0 01-1.897 1.13L6 18l.8-2.685a4.5 4.5 0 011.13-1.897l8.932-8.931zm0 0L19.5 7.125M18 14v4.75A2.25 2.25 0 0115.75 21H5.25A2.25 2.25 0 013 18.75V8.25A2.25 2.25 0 015.25 6H10" />
+    //           </svg>
+    //         </button>
+    //         <button class="btn btn-danger" onclick="deleteKnight(${knight.id})" aria-label="Delete">
+    //           <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
+    //             <path stroke-linecap="round" stroke-linejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+    //           </svg>
+    //         </button>
+    //       </td>
+    //     `;
+    //     tbody.appendChild(tr);
+    //   });
+    // }
 
-    async function fetchKnights() {
-      try {
-        const { data: knights, error } = await supabase
-          .from('knights')
-          .select('*')
-          .order('rank', { ascending: false });
+    // async function fetchKnights() {
+    //   let knightsData = null; // Keep track of data even if error occurs
+    //   try {
+    //     console.log('Attempting to fetch knights...'); // Log start
+    //     const { data: knights, error } = await supabase
+    //       .from('knights')
+    //       .select('*')
+    //       .order('rank', { ascending: false });
 
-        if (error) throw error;
-        displayKnights(knights);
-      } catch (error) {
-        console.error('Error fetching knights:', error);
-        alert('An error occurred while fetching members');
-      }
-    }
+    //     knightsData = knights; // Store data regardless of error for logging
+    //     console.log('Supabase fetch response:', { knights, error }); // Log the raw response
+
+    //     if (error) {
+    //         console.error('Supabase returned an error during fetchKnights:', error); // Log the specific Supabase error
+    //         // Log data even if there is an error to see if anything was returned
+    //         if(knights) {
+    //             console.log('Data received despite error:', knights);
+    //         }
+    //         throw error; // Re-throw to trigger the catch block
+    //     }
+
+    //     console.log('Fetch successful, displaying knights.'); // Log success
+    //     if (knights) { // Ensure knights data is not null/undefined before displaying
+    //       displayKnights(knights);
+    //     } else {
+    //       console.warn('No knight data received, even though no error was reported.');
+    //       // Optionally display a message in the table
+    //       const tbody = document.getElementById('knights-table-body');
+    //       if (tbody) {
+    //         tbody.innerHTML = `<tr><td colspan="4" style="text-align: center;">No members found.</td></tr>`;
+    //       }
+    //     }
+    //   } catch (error) {
+    //     console.error('Caught exception in fetchKnights:', error); // Log the caught exception
+    //     // Alert is less user-friendly, let's rely on console and table message
+    //     // alert(`An error occurred while fetching members. Please check the console for details. Error: ${error.message}`);
+        
+    //     // Display error message in the table
+    //     const tbody = document.getElementById('knights-table-body');
+    //     if (tbody) { // Check if tbody exists
+    //         tbody.innerHTML = `<tr><td colspan="4" style="text-align: center; color: red;">Error loading members. Check console or try again.</td></tr>`;
+    //     }
+
+    //     // Optional: If you still want to display potentially partial data fetched before the error
+    //     // if (knightsData) {
+    //     //   console.log('Displaying potentially partial data after error:', knightsData);
+    //     //   displayKnights(knightsData);
+    //     // }
+    //   }
+    // }
 
     // --- CSV Data Handling ---
 
@@ -443,7 +479,7 @@
     });
 
     // Initial load
-    fetchKnights();
+    // fetchKnights();
     fetchCsvData(); // Fetch CSV data on load
   </script>
 </body>
