@@ -11,7 +11,7 @@
     <ul>
       <li><a href="#home">Home</a></li>
       <li><a href="#purpose">Purpose & Bylaws</a></li>
-      <li><a href="#members">Members</a></li>
+      <li><a href="#test">Members Overview</a></li>
     </ul>
   </nav>
 
@@ -84,42 +84,10 @@
       </div>
     </section>
 
-    <!-- Members Section -->
-    <section id="members" class="section">
-      <div class="section-content">
-        <h2>Members Overview</h2>
-        <div class="members-container">
-          <div class="table-wrapper">
-            <table>
-              <thead>
-                <tr>
-                  <th>Member</th>
-                  <th>Title</th>
-                  <th>Rank</th>
-                  <th>Actions</th>
-                </tr>
-              </thead>
-              <tbody id="knights-table-body">
-                <!-- Table content will be dynamically populated -->
-              </tbody>
-            </table>
-          </div>
-          <div class="table-controls">
-            <button class="btn btn-primary" onclick="addNewKnight()" aria-label="Add New Member">
-              <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="btn-icon">
-                <path stroke-linecap="round" stroke-linejoin="round" d="M12 4.5v15m7.5-7.5h-15" />
-              </svg>
-              Add New Member
-            </button>
-          </div>
-        </div>
-      </div>
-    </section>
-
     <!-- Test Section -->
     <section id="test" class="section">
       <div class="section-content">
-        <h2>Test - CSV Data</h2>
+        <h2>Members Overview</h2>
         <div class="table-wrapper">
           <table id="csv-data-table">
             <thead>
@@ -416,10 +384,15 @@
 
       // Populate headers
       const headerRow = document.createElement('tr');
-      headers.forEach(headerText => {
+      let medlemsscoreIndex = -1; // Keep track of the Medlemsscore column index
+      headers.forEach((headerText, index) => {
         if (headerText) { // Only add non-empty headers
             const th = document.createElement('th');
             th.textContent = headerText;
+            if (headerText === 'Medlemsscore') {
+              medlemsscoreIndex = index; // Store the index
+              th.style.borderRight = '1px solid #d4c4a6'; // Use text color for border
+            }
             headerRow.appendChild(th);
         }
       });
@@ -431,7 +404,25 @@
         // Ensure rowData has the same number of cells as headers
         for (let i = 0; i < headers.length; i++) {
             const td = document.createElement('td');
-            td.textContent = rowData[i] !== undefined ? rowData[i] : ''; // Handle potentially missing cells
+            const cellData = rowData[i] !== undefined ? rowData[i] : ''; // Handle potentially missing cells
+            
+            // Check if the current header requires bold text
+            if (headers[i] === 'Medlemmer' || headers[i] === 'Medlemsscore') {
+              td.innerHTML = `<strong>${cellData}</strong>`; // Use innerHTML to add strong tag
+            } else {
+              td.textContent = cellData;
+            }
+
+            // Center text for all columns except 'Medlemmer'
+            if (headers[i] !== 'Medlemmer') {
+              td.style.textAlign = 'center';
+            }
+
+            // Add vertical line after Medlemsscore column
+            if (i === medlemsscoreIndex) {
+              td.style.borderRight = '1px solid #d4c4a6'; // Use text color for border
+            }
+            
             tr.appendChild(td);
         }
         tbody.appendChild(tr);
