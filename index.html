@@ -107,8 +107,6 @@
   </footer>
 
   <script type="module">
-    import { createClient } from 'https://esm.sh/@supabase/supabase-js@2'
-
     // --- CSV Data Handling ---
 
     async function fetchCsvData() {
@@ -230,7 +228,6 @@
     });
 
     // Initial load
-    // fetchKnights();
     fetchCsvData(); // Fetch CSV data on load
   </script>
 </body>
