@@ -6,21 +6,63 @@
     margin: 0;
     padding: 0;
     box-sizing: border-box;
-    scrollbar-width: none; /* Firefox */
-    -ms-overflow-style: none; /* IE and Edge */
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
   }
   
-  *::-webkit-scrollbar {
-    display: none; /* Chrome, Safari, Opera */
+  /* Custom scrollbar styling for PC */
+  @media screen and (min-width: 769px) {
+    /* Webkit browsers (Chrome, Safari, Opera) */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: #1a120b;
+      border-radius: 6px;
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: linear-gradient(to bottom, #5d4a36, #7d634d);
+      border-radius: 6px;
+      border: 1px solid #3e2e21;
+    }
+    
+    ::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to bottom, #7d634d, #9e814e);
+    }
+    
+    ::-webkit-scrollbar-corner {
+      background: #1a120b;
+    }
+    
+    /* Firefox */
+    * {
+      scrollbar-width: auto;
+      scrollbar-color: #5d4a36 #1a120b;
+    }
+    
+    /* IE and Edge */
+    * {
+      -ms-overflow-style: auto;
+    }
+  }
+  
+  /* Hide scrollbars on mobile devices */
+  @media screen and (max-width: 768px) {
+    * {
+      scrollbar-width: none; /* Firefox */
+      -ms-overflow-style: none; /* IE and Edge */
+    }
+    
+    *::-webkit-scrollbar {
+      display: none; /* Chrome, Safari, Opera */
+    }
   }
   
   html {
     scroll-behavior: smooth;
     overflow-y: scroll;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
   }
   
   body {
@@ -368,13 +410,41 @@
     width: 100%;
     overflow-x: auto;
     -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-    -ms-overflow-style: none;
     margin-bottom: 1rem;
   }
   
-  .table-wrapper::-webkit-scrollbar {
-    display: none;
+  /* Custom scrollbar for table wrapper on PC */
+  @media screen and (min-width: 769px) {
+    .table-wrapper::-webkit-scrollbar {
+      height: 12px;
+    }
+    
+    .table-wrapper::-webkit-scrollbar-track {
+      background: #1a120b;
+      border-radius: 6px;
+    }
+    
+    .table-wrapper::-webkit-scrollbar-thumb {
+      background: linear-gradient(to right, #5d4a36, #7d634d);
+      border-radius: 6px;
+      border: 1px solid #3e2e21;
+    }
+    
+    .table-wrapper::-webkit-scrollbar-thumb:hover {
+      background: linear-gradient(to right, #7d634d, #9e814e);
+    }
+  }
+  
+  /* Hide table wrapper scrollbar on mobile */
+  @media screen and (max-width: 768px) {
+    .table-wrapper {
+      scrollbar-width: none;
+      -ms-overflow-style: none;
+    }
+    
+    .table-wrapper::-webkit-scrollbar {
+      display: none;
+    }
   }
   
   /* Table styling */
