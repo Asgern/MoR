@@ -34,7 +34,7 @@
               <li><strong>Stormøde Vandmandens Gilde</strong><br>Second Saturday of February</li>
               <li><strong>Tvillingens Gilde</strong><br>Last Saturday of May</li>
               <li><strong>Løvens Gilde</strong><br>Second Saturday of August</li>
-              <li><strong>Skorpionens Gilde</strong><br>Second Saturday of November</li>
+              <li><strong>Skorpionens Gilde</strong><br>Eight days after the first friday of November</li>
             </ul>
           </div>
 
@@ -198,8 +198,8 @@
               td.textContent = cellData;
             }
 
-            // Center text for all columns except 'Medlemmer'
-            if (headers[i] !== 'Medlemmer') {
+            // Center text for all columns except 'Medlemmer', 'Funktion', and 'Titel'
+            if (headers[i] !== 'Medlemmer' && headers[i] !== 'Funktion' && headers[i] !== 'Titel') {
               td.style.textAlign = 'center';
             }
 
